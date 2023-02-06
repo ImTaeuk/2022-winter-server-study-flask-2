@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, jsonify
 from flask_restx import Resource, Namespace
 from database.database import Database
 
