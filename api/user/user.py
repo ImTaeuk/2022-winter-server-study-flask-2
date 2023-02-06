@@ -6,14 +6,13 @@ user = Namespace('user')
 
 @user.route('')
 class UserManagement(Resource):
-    @user.route('/user', methods=['GET'])
     def get(self):
         # GET method 구현 부분
         db = Database()
-        args = request.args
+        data = request.get_json()
 
-        id = args.get("id")
-        pw = args.get("pw")
+        id = data['id']
+        pw = data['pw']
 
         sql = "SELECT id, pw, nickname FROM taeukDB.user WHERE id = '" + id + "'"
         row = db.execute_one(sql)
