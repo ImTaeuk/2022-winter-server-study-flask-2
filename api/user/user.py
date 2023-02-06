@@ -11,8 +11,8 @@ class UserManagement(Resource):
         db = Database()
         data = request.args.to_dict()
 
-        id = data['id']
-        pw = data['pw']
+        id = data["id"]
+        pw = data["pw"]
 
         sql = "SELECT id, pw, nickname FROM taeukDB.user WHERE id = '" + id + "'"
         row = db.execute_one(sql)
