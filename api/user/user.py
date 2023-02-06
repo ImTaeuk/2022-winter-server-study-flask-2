@@ -9,7 +9,7 @@ class UserManagement(Resource):
     def get(self):
         # GET method 구현 부분
         db = Database()
-        data = request.get_json()
+        data = request.args.to_dict()
 
         id = data['id']
         pw = data['pw']
