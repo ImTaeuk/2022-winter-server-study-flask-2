@@ -7,13 +7,14 @@ config.read_file(open('config/config.ini'))
 class Database:
     def __init__(self):
         self.db = pymysql.connect(
-            host = config['DATABASE']['HOST'],
-            user = config['DATABASE']['USER'],
-            password = config['DATABASE']['PASSWORD'],
-            db = config['DATABASE']['DB'],
-            port = int(config['DATABASE']['PORT']),
-            charset = config['DATABASE']['CHARSET']
+            host='43.201.112.59',
+            user='taeuk',
+            password='3862',
+            db='taeukDB',
+            port=3306,
+            charset='utf8'
         )
+
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)
 
     def execute(self, query, args={}):
