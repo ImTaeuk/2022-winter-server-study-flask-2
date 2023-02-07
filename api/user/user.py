@@ -76,13 +76,14 @@ class UserManagement(Resource):
         
         row = db.execute_one(sql)
 
-        outnickname = row['nickname']
-        outpw = row['pw']
+        
 
         if (row is None):
             db.close()
             return make_response(jsonify({"is_success" : False, "message" : "아이디나 비밀번호 불일치"}), 400)
         else:
+            outnickname = row['nickname']
+            outpw = row['pw']
             if (outpw != pw):
                 db.close()
                 return make_response(jsonify({"is_success" : False, "message" : "아이디나 비밀번호 불일치"}), 400)
