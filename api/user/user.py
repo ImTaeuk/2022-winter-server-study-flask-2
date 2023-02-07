@@ -4,27 +4,33 @@ from database.database import Database
 
 user = Namespace('user')
 
-@user.route('')
-class UserManagement(Resource):
+@user.route('',methods=['GET'])
+class UserManagementGet(Resource):
     def get(self):
         # GET method 구현 부분
         db = Database()
-        data = request.get_json()
+        id = request.args.get('id')
+        pw = request.args.get('password')
 
-        id = data['id']
-        pw = data['pw']
+        print("id = " + id)
+        print("pw = " + pw)
+
+        # id = data['id']
+        # pw = data['password']
 
         sql = "SELECT id, pw, nickname FROM taeukDB.user WHERE id = '" + id + "'"
         row = db.execute_one(sql)
 
-        outnickname = row['nickname']
-        outpw = row['pw']
+        print(row)
+        
 
         if (row is None):
             db.close()
             return make_response(jsonify({"message" : "해당 유저가 존재하지 않음"}), 400)
 
         else:
+            outnickname = row['nickname']
+            outpw = row['pw']
             if (outpw != pw):
                 db.close()
                 return make_response(jsonify({"message" : "아이디나 비밀번호 불일치"}), 400)
@@ -34,13 +40,15 @@ class UserManagement(Resource):
 
 
 
+@user.route('')
+class UserManagement(Resource):
     def post(self):
         db = Database()
 
         data = request.get_json()
 
         id = data['id']
-        pw = data['pw']
+        pw = data['password']
         nickname = data['nickname']
 
         sql = "SELECT * FROM user WHERE id = '" + id + "'"
@@ -69,7 +77,7 @@ class UserManagement(Resource):
         data = request.get_json()
 
         id = data['id']
-        pw = data['pw']
+        pw = data['password']
         nickname = data['nickname']
 
         sql = "SELECT id, pw, nickname FROM user WHERE id = '" + id + "'"
@@ -107,19 +115,20 @@ class UserManagement(Resource):
         data = request.get_json()
 
         id = data['id']
-        pw = data['pw']
+        pw = data['password']
 
         sql = "SELECT id, pw FROM user WHERE id = '" + id + "'"
         
         row = db.execute_one(sql)
         print(row)
-        outpw = row['pw']
+        
 
         if (row is None):
             db.close()
             return make_response(jsonify({"is_success" : False, "message" : "아이디나 비밀번호 불일치"}), 400)
 
         else:
+            outpw = row['pw']
             if (outpw != pw):
                 db.close()
                 return make_response(jsonify({"is_success" : False, "message" : "아이디나 비밀번호 불일치"}), 400)
