@@ -12,16 +12,8 @@ class UserManagementGet(Resource):
         id = request.args.get('id')
         pw = request.args.get('password')
 
-        print("id = " + id)
-        print("pw = " + pw)
-
-        # id = data['id']
-        # pw = data['password']
-
         sql = "SELECT id, pw, nickname FROM taeukDB.user WHERE id = '" + id + "'"
         row = db.execute_one(sql)
-
-        print(row)
         
 
         if (row is None):
@@ -120,7 +112,6 @@ class UserManagement(Resource):
         sql = "SELECT id, pw FROM user WHERE id = '" + id + "'"
         
         row = db.execute_one(sql)
-        print(row)
         
 
         if (row is None):
