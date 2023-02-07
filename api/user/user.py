@@ -53,7 +53,7 @@ class UserManagement(Resource):
             db.commit()
             db.close()
 
-            return make_response(jsonify({"is_success" : True, "message" : "유저생성성공"}), 200)
+            return make_response(jsonify({"is_success" : True, "message" : "유저 생성 성공"}), 200)
 
         else:
             db.close()
@@ -75,8 +75,6 @@ class UserManagement(Resource):
         sql = "SELECT id, pw, nickname FROM user WHERE id = '" + id + "'"
         
         row = db.execute_one(sql)
-
-        
 
         if (row is None):
             db.close()
